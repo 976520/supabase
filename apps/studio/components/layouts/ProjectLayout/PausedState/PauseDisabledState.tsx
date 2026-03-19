@@ -133,16 +133,18 @@ export const PauseDisabledState = () => {
           downloaded as a backup.
         </p>
 
-        {!!pauseStatus?.last_paused_on && (
-          <p className="text-foreground-lighter text-sm">
-            Project last paused on{' '}
-            <TimestampInfo
-              className="text-sm"
-              labelFormat="DD MMM YYYY"
-              utcTimestamp={pauseStatus.last_paused_on}
-            />
-          </p>
-        )}
+        {!!pauseStatus?.last_paused_on &&
+          (!project?.inserted_at ||
+            pauseStatus.last_paused_on >= project.inserted_at) && (
+            <p className="text-foreground-lighter text-sm">
+              Project last paused on{' '}
+              <TimestampInfo
+                className="text-sm"
+                labelFormat="DD MMM YYYY"
+                utcTimestamp={pauseStatus.last_paused_on}
+              />
+            </p>
+          )}
 
         <div>
           <p className="!leading-normal !mb-1">Recovery options:</p>
